@@ -1,0 +1,56 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <link href="~/lib/twitter-bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-2">
+        <a asp-action="Index" asp-controller="Home" class="navbar-brand text-white">
+            <img src="~/favicon.ico " width="30" height="30" class="d-inline-block align-top" alt="" loading="lazy">
+        </a>
+        <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+
+            <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+                <li class="nav-item active">
+                    <a class="nav-link" asp-action="Index" asp-controller="Home">Home <span class="sr-only">(current)</span></a>
+                </li>
+            </ul>
+            <div class="row">
+                <div class="container">
+                    @if (!User.Identity.IsAuthenticated)
+                    {
+                        <a asp-action="SignUp" asp-controller="Home" class="btn btn-sm btn-outline-warning col-md-6">SignUp</a>
+                        <a asp-action="LogIn" asp-controller="Home" class="btn btn-sm btn-outline-warning col-md-6">Login</a>
+                    }
+                    else
+                    {
+                        <a asp-action="Index" asp-controller="Member" class="btn btn-sm btn-outline-warning col-md-6">Member</a>
+                        if (User.IsInRole("Admin"))
+                        {
+                            <a asp-action="Index" asp-controller="Admin" class="btn btn-sm btn-outline-warning col-md-6">Admin</a>
+                        }
+                        <a asp-action="Logout" asp-controller="Member" class="btn btn-sm btn-outline-warning col-md-6">Çıkış</a>
+                    }
+                </div>
+            </div>
+        </div>
+        <button class="navbar-toggler ml-auto" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+    </nav>
+    @RenderBody()
+
+
+
+
+    <script src="~/lib/popper/umd/popper.min.js"></script>
+    <script src="~/lib/jquery/jquery.min.js"></script>
+    <script src="~/lib/jquery-validate/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/lib/twitter-bootstrap/js/bootstrap.min.js"></script>
+
+</body>
+</html>

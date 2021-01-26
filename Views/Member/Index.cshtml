@@ -1,0 +1,67 @@
+﻿@model UserViewModel
+@{
+    ViewData["Title"] = "Member Index";
+    Layout = "MemberLayout";
+}
+
+
+<h3 class="text-center">Kullanıcı Bilgileri</h3>
+<div class="row">
+    <div class="col-md-3">
+        <img class="img-fluid rounded" src="@Model.Picture" />
+    </div>
+    <div class="col-md-9">
+        <table class="table table-bordered table-striped">
+            <tr>
+                <th>Kallanıcı Adı</th>
+                <td>@Model.UserName</td>
+            </tr>
+            <tr>
+                <th>E-Posta</th>
+                <td>@Model.Email</td>
+            </tr>
+            <tr>
+                <th>Telefon</th>
+                <td>@Model.PhoneNumber</td>
+            </tr>
+            <tr>
+                <th>Şehir</th>
+                <td>@Model.City</td>
+            </tr>
+            <tr>
+                <th>Cinsiyet</th>
+                <td>@Model.Gender</td>
+            </tr>
+            <tr>
+                <th>Şehir</th>
+                <td>@Model.BirthDay.ToShortDateString()</td>
+            </tr>
+        </table>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <table class="table table-hover table-bordered table-responsive">
+            <thead>
+            <tr>
+ 
+                <th scope="col">Kim</th>
+                <th scope="col">Dağıtıcı</th>
+                <th scope="col">Ad</th>
+                <th scope="col">Değer</th>
+            </tr>
+            </thead>
+            <tbody>
+            @foreach (var item in Model.claims)
+            {
+                <tr>
+                    <td>@item.Subject.Name</td>
+                    <td>@item.Issuer</td>
+                    <td>@item.Type</td>
+                    <td>@item.Value</td>
+                </tr>
+            }
+            </tbody>
+        </table>
+    </div>
+</div>

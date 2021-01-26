@@ -1,0 +1,33 @@
+﻿@model SignUpViewModel
+
+@{
+    ViewData["Title"] = "Sign Up";
+}
+
+<div class="col-md-4 mx-auto mt-3 bg-light shadow p-3 rounded">
+    <h2>Kayıt Ol</h2>
+    <hr />
+    <form asp-action="SignUp">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="form-group">
+            <label asp-for="UserName" class="control-label"></label>
+            <input asp-for="UserName" class="form-control" />
+            <span asp-validation-for="UserName" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Email" class="control-label"></label>
+            <input asp-for="Email" class="form-control" />
+            <span asp-validation-for="Email" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Password" class="control-label"></label>
+            <input asp-for="Password" class="form-control" />
+            <span asp-validation-for="Password" class="text-danger"></span>
+        </div>
+        <div class="form-group text-right">
+            <input type="submit" value="Kayıt Ol" class="btn btn-sm btn-outline-primary" />
+        </div>
+    </form>
+</div>
+
+

@@ -1,0 +1,39 @@
+﻿@model IEnumerable<AppRole>
+@{
+    ViewData["Title"] = "Roles";
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+}
+
+<h4>Roller</h4>
+<a asp-action="RoleCreate" asp-controller="Admin" class="btn btn-primary float-right mb-2">Yeni Rol Ekle</a>
+<table class="table table-hover">
+    <thead>
+    <tr>
+        <th scope="col">#</th>
+        <th scope="col">Rol Adı</th>
+        <th scope="col">Edit</th>
+    </tr>
+    </thead>
+    <tbody>
+    @if (!Model.Any())
+    {
+        <tr>
+            <td colspan="3" class="text-center"><u><b>Kayıt bulunamadı</b></u></td>
+        </tr>
+    }
+    else
+    {
+        foreach (var role in Model)
+        {
+            var a = Model.IndexOf(role) + 1;
+            <tr>
+                <td>@a</td>
+                <td>@role.Name</td>
+                <td><a asp-action="RoleEdit" asp-route-id="@role.Id" class="btn btn-warning btn-sm">Düzenle</a><a asp-action="RoleDelete" asp-route-id="@role.Id" class="btn btn-danger btn-sm">Sil</a></td>
+
+            </tr>
+        }
+    }
+    </tbody>
+</table>
+
