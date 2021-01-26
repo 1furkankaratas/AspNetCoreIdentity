@@ -44,6 +44,15 @@ namespace AspNetCoreIdentity.Controllers
 
             if (result.Succeeded)
             {
+                string confirmationToken = await UserManager.GenerateEmailConfirmationTokenAsync(user);
+                string link = Url.Action("ConfirmEmail", "Home", new
+                {
+                    userId = user.Id,
+                    token = confirmationToken
+                },protocol:HttpContext.Request.Scheme);
+
+                Helpers.EmailConfirmationHelper.EmailConfirmationSendMail(link,user.Email);
+
                 return RedirectToAction("LogIn");
             }
             else
@@ -84,6 +93,12 @@ namespace AspNetCoreIdentity.Controllers
                 {
                     ModelState.AddModelError("", "Hesabınız bir süreliğine kitlenmiştir lütfen daha sonra tekrar deneyiniz");
                     return View();
+                }
+
+                if (!UserManager.IsEmailConfirmedAsync(user).Result)
+                {
+                    ModelState.AddModelError("","Lüften epostanıza gönderilen hesap doğrulama linkine tıklayınız.");
+                    return View(model);
                 }
 
                 await SignInManager.SignOutAsync();
@@ -203,6 +218,25 @@ namespace AspNetCoreIdentity.Controllers
             }
 
             return View();
+        }
+
+        public async Task<IActionResult> ConfirmEmail(string userid, string token)
+        {
+
+            var user = await UserManager.FindByIdAsync(userid);
+            var result = await UserManager.ConfirmEmailAsync(user, token);
+
+            if (result.Succeeded)
+            {
+                
+            }
+            else
+            {
+                AddModelError(result);
+            }
+
+            return RedirectToAction("LogIn", "Home");
+
         }
     }
 
