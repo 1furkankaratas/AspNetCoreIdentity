@@ -153,7 +153,7 @@ namespace AspNetCoreIdentity.Controllers
 
                 }, HttpContext.Request.Scheme);
 
-                Helpers.ResetPasswordHelper.ResetPasswordSendMail(resetPasswordLink);
+                Helpers.ResetPasswordHelper.ResetPasswordSendMail(resetPasswordLink,user.Email);
                 ViewBag.status = "successful";
             }
             else
